@@ -7,7 +7,7 @@ This is the simplest setup: You need one computer running the described [specs](
 ## Cloud Machine
 The following script provides a step-by-step guide to the necessary steps to provision a cloud machine.
 ```
-sh provision-cloud-machine.sh
+bash provision-cloud-machine.bash
 ```
 
 ### DNS
@@ -21,6 +21,7 @@ Finally, you will need to create an A record pointing your device public IP addr
 
 You should now be able to resolve the IP address of openrobotics.demo.open-rmf.org. For example:
 
+```
 # dig openrobotics.demo.open-rmf.org
 
 ; <<>> DiG 9.16.16 <<>> openrobotics.demo.open-rmf.org
@@ -41,4 +42,4 @@ openrobotics.demo.open-rmf.org. 299 IN  A       13.213.154.74
 ;; SERVER: 8.8.8.8#53(8.8.8.8)
 ;; WHEN: Wed Jun 02 08:38:02 UTC 2021
 ;; MSG SIZE  rcvd: 75
-
+```

@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 env > /dev/null 2>&1
 
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
-function mainmenu() {
+mainmenu() {
     whiptail \
         --title "Provision Cloud Machine" \
         --menu "Cloud Provisioning Steps" \
-        --clear --ok-button 'select' \
+        --clear --ok-button 'Select' \
         $LINES $(($COLUMNS-8)) $(( $LINES-8 ))  \
         "Install AWS CLI v2" "| [Root] Terminal interface to manage AWS resources." \
         "Install Terraform"  "| [Root] Provisioning Tool" \

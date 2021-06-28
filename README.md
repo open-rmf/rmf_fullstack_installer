@@ -6,7 +6,7 @@ This repository provides tooling to:
 
 ## TLDR
 ```
-sh provisioning/provision-cloud-machine.sh
+bash provisioning/provision-cloud-machine.bash
 ```
 
 ## Infrastructure Requirements
