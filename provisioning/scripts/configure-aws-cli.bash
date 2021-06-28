@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 help_textbox=$(mktemp)
 cat << END > $help_textbox

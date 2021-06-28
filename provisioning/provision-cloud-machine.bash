@@ -22,22 +22,22 @@ mainmenu() {
 while true; do
     case $(mainmenu) in
         "Install AWS CLI v2")
-            sudo sh $SCRIPTPATH/scripts/install-aws-cli.sh
+            sudo bash $SCRIPTPATH/scripts/install-aws-cli.bash
             ;;
         "Install Terraform")
-            sudo sh $SCRIPTPATH/scripts/install-terraform.sh
+            sudo bash $SCRIPTPATH/scripts/install-terraform.bash
             ;;
         "Configure AWS CLI")
-            sh $SCRIPTPATH/scripts/configure-aws-cli.sh
+            bash $SCRIPTPATH/scripts/configure-aws-cli.bash
             ;;
         "Generate AWS Keys")
-            sh $SCRIPTPATH/scripts/generate-aws-keys.sh
+            bash $SCRIPTPATH/scripts/generate-aws-keys.bash
             ;;
         "Provision")
-            sh $SCRIPTPATH/scripts/provision.sh $SCRIPTPATH
+            bash $SCRIPTPATH/scripts/provision.bash $SCRIPTPATH
             ;;
         "Destroy")
-            sh $SCRIPTPATH/scripts/destroy.sh $SCRIPTPATH
+            bash $SCRIPTPATH/scripts/destroy.bash $SCRIPTPATH
             ;;
         *)
             break

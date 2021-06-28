@@ -19,7 +19,7 @@ resource "aws_instance" "rmf_fullstack" {
   instance_type = "c5.2xlarge"
   vpc_security_group_ids = [aws_security_group.rmf_fullstack.id]
   subnet_id = aws_subnet.rmf_fullstack.id
-  key_name = "rmf_fullstack"
+  key_name = "rmf_fullstack_id_rsa"
   ebs_block_device{
     device_name = "/dev/sda1"
     volume_size = 64
@@ -100,9 +100,9 @@ resource "aws_security_group" "rmf_fullstack" {
 
   ingress { 
     description = "Wireguard"
-    from_port = 58120
-    to_port = 58120
-    protocol = "tcp"
+    from_port = 51820
+    to_port = 51820
+    protocol = "udp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 

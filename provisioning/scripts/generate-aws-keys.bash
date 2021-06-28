@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 env > /dev/null 2>&1
 
@@ -11,7 +11,7 @@ KEY_NAME=$(whiptail \
 
 test -f $HOME/.ssh/$KEY_NAME && echo "Key already exists, aborting to prevent accidental overwrite." && exit
 
-aws ec2 create-key-pair --key-name $KEY_NAME --output text > "$KEY_NAME" 
+aws ec2 create-key-pair --key-name $KEY_NAME --query 'KeyMaterial' --output text > "$KEY_NAME" 
 
 ( [ -s "$KEY_NAME" ] && chmod 0400 "$KEY_NAME" && mv "$KEY_NAME" $HOME/.ssh  ) || rm "$KEY_NAME"
 

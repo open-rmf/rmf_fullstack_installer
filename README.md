@@ -6,7 +6,14 @@ This repository provides tooling to:
 
 ## TLDR
 ```
+# Provision Cloud Machine 
 bash provisioning/provision-cloud-machine.bash
+
+# Set Up Cloud Machine
+bash setup/host-setup.bash
+
+# Provision and Deploy
+bash setup/container-setup.bash setup/config/rmf.yaml
 ```
 
 ## Infrastructure Requirements
@@ -16,7 +23,7 @@ You can run this setup on your local machine, or provision a machine in the clou
 * c5.2xlarge  (15GB RAM, 4vCPU, 10 Gbps)
 * 64GB storage
 
-The `host_setup` step is quick and only needs to be done once per cloud instance. "O(1)".
+The `host-setup` step is quick and only needs to be done once per cloud instance. 
 
-The `container_setup` step takes about 45 minutes on these specs, but can go faster with more powerful machines. Subsequent builds will be faster, unless you delete the container to start "fresh".
+The `container-setup` step takes about 45 minutes on these specs, but can go faster with more powerful machines. Subsequent builds will be faster, unless you delete the container to start "fresh".
 
