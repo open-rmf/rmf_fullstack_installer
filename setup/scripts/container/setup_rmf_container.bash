@@ -18,7 +18,7 @@ chmod 0600 $KEY $PUBKEY
 grep "$(cat $PUBKEY)" $AUTHORIZED_KEYS -qs || cat $PUBKEY >> $AUTHORIZED_KEYS
 
 touch $KNOWN_HOSTS
-ssh-keygen -f "$KNOWN_HOSTS" -R "$1.local" > /dev/null 
+ssh-keygen -f "$KNOWN_HOSTS" -R "$RMF_FS_INSTANCE_NAME.local" > /dev/null 
 eval_retry "lxc exec $RMF_FS_INSTANCE_NAME -- bash -c \"echo $(cat $PUBKEY) >> /root/.ssh/authorized_keys\""
 eval_retry "ssh -o StrictHostKeyChecking=no root@$RMF_FS_INSTANCE_NAME.local -i $KEY echo 'SSH over mDNS is successful'"
 
