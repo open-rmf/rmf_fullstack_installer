@@ -75,20 +75,21 @@ used_by: []
 EOF
 }
 
-lxc_create_profile_minikube() {
-lxc profile create minikube &> /dev/null || true
-cat << EOF | lxc profile edit minikube
-name: minikube
+lxc_create_profile_kubernetes() {
+lxc profile create kubernetes &> /dev/null || true
+cat << EOF | lxc profile edit kubernetes
+name: kubernetes
 config:
-  linux.kernel_modules: ip_tables,ip6_tables,netlink_diag,nf_nat,overlay
+  linux.kernel_modules: ip_tables,ip6_tables,netlink_diag,nf_nat,overlay,br_netfilter
   raw.lxc: |
     lxc.apparmor.profile=unconfined
     lxc.mount.auto=proc:rw sys:rw
     lxc.cap.drop=
     lxc.cgroup.devices.allow = a
+    lxc.mount.entry = /dev/kmsg dev/kmsg none defaults,bind,create=file
   security.nesting: "true"
   security.privileged: "true"
-description: Profile supporting minikube in containers
+description: Profile supporting kubernetes in containers
 devices:
   aadisable:
     path: /sys/module/apparmor/parameters/enabled
@@ -131,7 +132,7 @@ lxc_setup_all() {
   lxc_create_storage_pool || echo "Storage pool was not created"
   lxc_create_network_lxdbr0 || echo "Network lxcbr0 was not created"
   lxc_create_profile_display  || echo "Display profile was not created."
-  lxc_create_profile_minikube  || echo "Minikube profile was not created."
+  lxc_create_profile_kubernetes  || echo "kubernetes profile was not created."
   lxc_create_profile_default  || echo "default profile was not created."
   lxc_create_profile_mounthome  || echo "mounthome profile was not created."
   lxc_create_profile_hostbridge  || echo "hostbridge profile was not created."
@@ -148,7 +149,7 @@ Networks:
 Profiles:
     default: Default profile
     display: Allows GUI over X11 when the host opens xhost permissions using xhost +
-    minikube: Allows minikube to run with docker driver. Requires privileged LXC 
+    kubernetes: Allows kubernetes to run with docker driver. Requires privileged LXC 
     mounthome: Mounts the home folder in the LXC container
     hostbridge: Container is a sister device on same network. Requires host to have wired connection.
     nat: Container is NATed behind a router on a separate subnet. The default network configuration.

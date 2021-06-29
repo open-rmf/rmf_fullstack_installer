@@ -1,5 +1,5 @@
 # List of configuration settings
-RMF_FS_URL: cag.demo.open-rmf.org                               # DNS Name of your rmf-web deployment
+RMF_FS_URL: openrobotics.demo.open-rmf.org                      # DNS Name of your rmf-web deployment
 RMF_FS_INSTANCE_NAME: rmf                                       # Chosen name of the LXC container
 RMF_FS_VCS_REPO: https://raw.githubusercontent.com/open-rmf/rmf/integration-tests/rmf.repos     # .repos file which this build will be based on
 RMF_FS_ROS_VERSION: foxy                                        # Target ROS2 version ( tested on foxy ) 

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 env > /dev/null 2>&1
 
@@ -21,19 +21,19 @@ mainmenu() {
 while true; do
     case $(mainmenu) in
         "TLS Setup")
-            sudo bash $SCRIPTPATH/scripts/tls_setup.bash
+            sudo bash $SCRIPTPATH/scripts/host/tls_setup.bash
             ;;
         "VNC Setup")
-            sudo bash $SCRIPTPATH/scripts/vnc_setup.bash
+            sudo bash $SCRIPTPATH/scripts/host/vnc_setup.bash
             ;;
         "noVNC Web Setup")
-            sudo bash $SCRIPTPATH/scripts/novnc_setup.bash
+            sudo bash $SCRIPTPATH/scripts/host/novnc_setup.bash
             ;;
         "LXC Setup")
-            bash $SCRIPTPATH/scripts/lxc_setup.bash
+            bash $SCRIPTPATH/scripts/host/lxc_setup.bash
             ;;
         "Manage VNC")
-            sudo bash $SCRIPTPATH/scripts/manage_vnc.bash
+            sudo bash $SCRIPTPATH/scripts/host/manage_vnc.bash
             ;;
         *)
             break

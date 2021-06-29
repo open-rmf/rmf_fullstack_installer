@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-SCRIPT_PATH=$(dirname $(realpath "$0"))
+SCRIPTPATH=$(dirname $(realpath "$0"))
 
 # Set up ROS2
 sudo apt update && sudo apt install curl gnupg2 lsb-release wget -y

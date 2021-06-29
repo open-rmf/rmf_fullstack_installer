@@ -1,6 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash 
 
 env > /dev/null 2>&1
+
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 if [ -z "$1" ]
   then
@@ -8,18 +10,13 @@ if [ -z "$1" ]
     exit 1
 fi
 
-SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+if [ ! -f $1 ]; then 
+    echo "Configuration file does not exist at $1"
+    exit 1
+fi 
 
-parse_yaml_and_export(){
-  export ${1::-1}=$2
-}
-
-get_repos_file(){
-  regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-  rm /tmp/$2.repos > /dev/null 2>&1 || true
-  if [[ $1 =~ $regex ]]; then wget $1 -O /tmp/$2.repos; else cp $1 /tmp/$2.repos; fi
-}
-
+source $SCRIPTPATH/scripts/container/utils.bash
+export_config_vars $1
 
 mainmenu() {
     whiptail \
@@ -27,21 +24,15 @@ mainmenu() {
         --menu "RMF Fullstack Host Container Steps" \
         --clear --ok-button 'Select' \
         $LINES $(($COLUMNS-8)) $(( $LINES-8 ))  \
-        "Setup RMF Container"     "| Set Up the RMF Container" \
-        "Setup rmf-web"           "| Set Up the rmf-web Container" \
+        "Setup RMF Container"     "| Provision + bootstrap an RMF container" \
+        "Setup rmf-web Container" "| Provision + bootstrap an rmf-web container" \
+        "RMF bootstrap"           "| Installs ROS2, RMF on the local machine" \
+        "rmf-web bootstrap"       "| Deploys rmf-web on the local machine. A user 'web' will be created." \
         "Setup VPN"               "| [Root] Set Up VPN (Wireguard) to connect all devices" \
         "Deploy Config Files"     "| [Root] Deploy all configuration files" \
-        "Delete"                  "| Delete all containers associated with this config file" \
+        "Delete Containers"       "| Delete all containers associated with this config file" \
         3>&1 1>&2 2>&3
 }
-
-
-if [ ! -f $1 ]; then 
-    echo "Configuration file does not exist at $1"
-    exit 1
-fi 
-
-while read envname; do [[ $envname == \#* ]] || parse_yaml_and_export $envname; done < $1
 
 help_textbox=$(mktemp)
 cat << END > $help_textbox
@@ -61,19 +52,25 @@ while true; do
     case $(mainmenu) in
         "Setup RMF Container")
             get_repos_file $RMF_FS_VCS_REPO $RMF_FS_INSTANCE_NAME 
-            bash $SCRIPTPATH/scripts/setup_rmf_container.bash $RMF_FS_INSTANCE_NAME
+            bash $SCRIPTPATH/scripts/container/setup_rmf_container.bash $1
             ;;
-        "Setup rmf-web")
-            bash $SCRIPTPATH/scripts/setup_rmf_web_container.bash $RMF_FS_INSTANCE_NAME $RMF_FS_URL
+        "Setup rmf-web Container")
+            bash $SCRIPTPATH/scripts/container/setup_rmf_web_container.bash $1
+            ;;
+        "RMF bootstrap")
+            bash $SCRIPTPATH/scripts/container/rmf_bootstrap.bash $1
+            ;;
+        "rmf-web bootstrap")
+            bash $SCRIPTPATH/scripts/container/web_bootstrap.bash $1
             ;;
         "Setup VPN")
-            sudo bash $SCRIPTPATH/scripts/setup_vpn.bash $RMF_FS_INSTANCE_NAME
+            sudo bash $SCRIPTPATH/scripts/container/setup_vpn.bash $1
             ;;
         "Deploy Config Files")
-            sudo bash $SCRIPTPATH/scripts/deploy_configs.bash $RMF_FS_INSTANCE_NAME $RMF_FS_URL $RMF_FS_ROS_VERSION $RMF_FS_ROS_DOMAIN_ID $RMF_FS_RMW_IMPLEMENTATION $RMF_FS_WEBSOCKET_PORT
+            sudo bash $SCRIPTPATH/scripts/container/deploy_configs.bash $1
             ;;
-        "Delete")
-            bash $SCRIPTPATH/scripts/delete.bash
+        "Delete Containers")
+            bash $SCRIPTPATH/scripts/container/delete.bash $1
             ;;
         *)
             break
