@@ -15,28 +15,28 @@ WG_SUBNET=$(whiptail \
     $LINES $COLUMNS 10.11.12 \
     3>&1 1>&2 2>&3)
 
-lxc info $RMF_FS_INSTANCE_NAME &> /dev/null || (echo "Please Create $RMF container for $RMF_FS_INSTANCE_NAME first." && exit 1)
-lxc info $RMF_WEB_INSTANCE_NAME &> /dev/null || (echo "Please Create rmf-web container for $RMF_FS_INSTANCE_NAME first." && exit 1)
+lxc info $RMF_FS_INSTANCE_NAME &> /dev/null || { echo "Please Create $RMF container for $RMF_FS_INSTANCE_NAME first."; exit 1; }
+lxc info $RMF_WEB_INSTANCE_NAME &> /dev/null || { echo "Please Create rmf-web container for $RMF_FS_INSTANCE_NAME first."; exit 1; }
 
 echo "Configuring /etc/hosts on host machine" 
 lxc restart $RMF_FS_INSTANCE_NAME || lxc start $RMF_FS_INSTANCE_NAME
-lxc restart $RMF_WEB_INSTANCE_NAME || lxc start $RMF_FS_INSTANCE_NAME
+lxc restart $RMF_WEB_INSTANCE_NAME || lxc start $RMF_WEB_INSTANCE_NAME
 
 echo "Retrieving ip address of $RMF_FS_INSTANCE_NAME"
-eval_retry '[ ! -z $(get_lxc_ip $RMF_FS_INSTANCE_NAME eth0) ]'
-sed -i "/$(get_lxc_ip $RMF_FS_INSTANCE_NAME eth0).*/d" /etc/hosts
-echo "$(get_lxc_ip $RMF_FS_INSTANCE_NAME eth0)    $RMF_FS_INSTANCE_NAME.local" >> /etc/hosts
+rmf_ip=`get_lxc_ip $RMF_FS_INSTANCE_NAME eth0`
+sed -i "/$rmf_ip.*/d" /etc/hosts
+echo "$rmf_ip    $RMF_FS_INSTANCE_NAME.local" >> /etc/hosts
 
 echo "Retrieving ip address of $RMF_WEB_INSTANCE_NAME"
-eval_retry '[ ! -z $(get_lxc_ip $RMF_WEB_INSTANCE_NAME eth0) ]'
-sed -i "/$(get_lxc_ip $RMF_WEB_INSTANCE_NAME eth0).*/d" /etc/hosts
-echo "$(get_lxc_ip $RMF_WEB_INSTANCE_NAME eth0)    $RMF_WEB_INSTANCE_NAME.local" >> /etc/hosts
+web_ip=`get_lxc_ip $RMF_WEB_INSTANCE_NAME eth0`
+sed -i "/$web_ip.*/d" /etc/hosts
+echo "$web_ip    $RMF_WEB_INSTANCE_NAME.local" >> /etc/hosts
 
 echo "Checking config files are present."
-[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/rmf/wg0.conf ]] || (echo "rmf wg0.conf not missing." && exit 1)
-[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/rmf-web/wg0.conf ]] || (echo "rmf-web wg0.conf not missing." && exit 1)
-[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/device/wg0.conf ]] || (echo "device wg0.conf not missing." && exit 1)
-[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/server/wg0.conf ]] || (echo "server wg0.conf not missing." && exit 1)
+[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/rmf/wg0.conf ]] || { echo "rmf wg0.conf not missing."; exit 1; }
+[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/rmf-web/wg0.conf ]] || { echo "rmf-web wg0.conf not missing."; exit 1; }
+[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/device/wg0.conf ]] || { echo "device wg0.conf not missing."; exit 1; }
+[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/server/wg0.conf ]] || { echo "server wg0.conf not missing."; exit 1; }
 echo "Success."
 
 echo "Deploying Wireguard Configs"

@@ -70,7 +70,7 @@ kubectl apply -f k8s/dashboard.yaml
 echo 'building reporting-server image...'
 docker build -t rmf-web/reporting-server -f docker/reporting-server.dockerfile $rmf_web_ws
 echo 'publishing reporting-server image...'
-docker save rmf-web/reporting-server --o reporting-server.zip
+docker save rmf-web/reporting-server -o reporting-server.zip
 docker load -i reporting-server.zip
 
 echo 'creating reporting-server configmap...'

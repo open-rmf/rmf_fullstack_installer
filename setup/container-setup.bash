@@ -26,8 +26,8 @@ mainmenu() {
         $LINES $(($COLUMNS-8)) $(( $LINES-8 ))  \
         "Setup RMF Container"     "| Provision + bootstrap an RMF container" \
         "Setup rmf-web Container" "| Provision + bootstrap an rmf-web container" \
-        "RMF bootstrap"           "| Installs ROS2, RMF on the local machine" \
-        "rmf-web bootstrap"       "| Deploys rmf-web on the local machine. A user 'web' will be created." \
+        "RMF bootstrap"           "| [Root] Installs ROS2, RMF on the local machine" \
+        "rmf-web bootstrap"       "| [Root] Deploys rmf-web on the local machine. A user 'web' will be created." \
         "Setup VPN"               "| [Root] Set Up VPN (Wireguard) to connect all devices" \
         "Deploy Config Files"     "| [Root] Deploy all configuration files" \
         "Delete Containers"       "| Delete all containers associated with this config file" \
@@ -58,10 +58,11 @@ while true; do
             bash $SCRIPTPATH/scripts/container/setup_rmf_web_container.bash $1
             ;;
         "RMF bootstrap")
-            bash $SCRIPTPATH/scripts/container/rmf_bootstrap.bash $1
+            sudo cp /tmp/$RMF_FS_INSTANCE_NAME.repos /root/rmf.repos
+            sudo bash $SCRIPTPATH/scripts/container/rmf_bootstrap.bash $1
             ;;
         "rmf-web bootstrap")
-            bash $SCRIPTPATH/scripts/container/web_bootstrap.bash $1
+            sudo bash $SCRIPTPATH/scripts/container/web_bootstrap.bash $1
             ;;
         "Setup VPN")
             sudo bash $SCRIPTPATH/scripts/container/setup_vpn.bash $1

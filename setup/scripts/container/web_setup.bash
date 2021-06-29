@@ -25,6 +25,6 @@ kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
 # Add /etc/hosts
 echo "Getting kubernetes ingress_ip. Waiting for it to come online.."
-eval_retry get_ingress_ip
-sed -i "/`get_ingress_ip` .*/d" /etc/hosts
-echo "`get_ingress_ip`    $1" >> /etc/hosts
+ip=`get_ingress_ip`
+sed -i "/$ip .*/d" /etc/hosts
+echo "$ip    $1" >> /etc/hosts

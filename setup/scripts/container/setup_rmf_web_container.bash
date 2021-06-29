@@ -32,3 +32,4 @@ scp -i $KEY $SCRIPTPATH/{web_bootstrap,web_setup,deploy_web_setup,utils}.bash ro
 scp -i $KEY $1 root@$RMF_WEB_INSTANCE_NAME.local:~/config.yaml
 
 lxc exec $RMF_WEB_INSTANCE_NAME -- bash -c "bash /root/web_bootstrap.bash /root/config.yaml"
+lxc stop $RMF_WEB_INSTANCE_NAME

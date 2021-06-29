@@ -29,12 +29,20 @@ do
 done
 }
 
-get_ingress_ip() {
-    kubectl get service --namespace ingress-nginx ingress-nginx-controller  --output jsonpath='{.status.loadBalancer.ingress[0].ip}'
+get_ingress_ip() { 
+    while true; do
+    	ip=`kubectl get service --namespace ingress-nginx ingress-nginx-controller  --output jsonpath='{.status.loadBalancer.ingress[0].ip}'`
+	if [[ ! -z $ip ]]; then echo $ip && break; fi
+ 	sleep 2
+    done
 }
 
 get_lxc_ip() {
-    lxc exec $1 -- ip -4 addr show $2 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+    while true; do
+    	ip=`lxc exec $1 -- ip -4 addr show $2 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'`
+        if [[ ! -z $ip ]]; then echo $ip && break; fi
+	sleep 2
+    done
 }
 
 install_docker() {
@@ -59,4 +67,25 @@ restart_wg(){
     wg-quick down wg0 > /dev/null 2>&1 || true
     systemctl restart wg-quick@wg0.service
     systemctl enable wg-quick@wg0.service
+}
+
+generate_wg0_client_conf() {
+# $1 - privatekey
+# $2 - subnet
+# $3 - device id
+# $4 - publickey
+# $5 - server external ip
+# $6 - conf file path
+cat << END > $6
+[Interface]
+PrivateKey = $1 
+Address = $2.$3/32
+DNS = 8.8.8.8
+PostUp = ping $2.1 -c 1
+
+[Peer]
+PublicKey = $4 
+Endpoint = $5:51820
+AllowedIPs = $2.0/24
+END
 }

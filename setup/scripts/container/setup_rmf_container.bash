@@ -27,3 +27,4 @@ scp -i $KEY $1 root@$RMF_FS_INSTANCE_NAME.local:~/config.yaml
 scp -i $KEY /tmp/$RMF_FS_INSTANCE_NAME.repos root@$RMF_FS_INSTANCE_NAME.local:~/rmf.repos 
 
 lxc exec $RMF_FS_INSTANCE_NAME -- bash -c "bash /root/rmf_bootstrap.bash /root/config.yaml"
+lxc stop $RMF_FS_INSTANCE_NAME

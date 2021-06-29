@@ -14,7 +14,8 @@ ln -s /snap/bin/certbot /usr/bin/certbot || true
 
 help_textbox=$(mktemp)
 cat << END > $help_textbox
-Your machine needs to be connected to the internet and have a registered domain name.
+Your machine needs to be connected to the internet and have a registered domain name. 
+Check that you can resolve the ip address of your domain name with ping.
 
 You will require the following information:
 Domain Name
