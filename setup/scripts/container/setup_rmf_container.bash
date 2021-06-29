@@ -9,7 +9,7 @@ lxc info $1 &> /dev/null || create_container $RMF_FS_INSTANCE_NAME
 echo "Installing mDNS"; eval_retry "lxc exec $RMF_FS_INSTANCE_NAME -- bash -c \"apt install avahi-daemon -y\"";
 
 # SSH key generation
-KEY=$HOME/.ssh/id_$RMF_FS_INSTANE_NAME
+KEY=$HOME/.ssh/id_$RMF_FS_INSTANCE_NAME
 PUBKEY=$KEY.pub
 AUTHORIZED_KEYS=$HOME/.ssh/authorized_keys
 KNOWN_HOSTS=$HOME/.ssh/known_hosts
