@@ -19,8 +19,8 @@ lxc info $RMF_FS_INSTANCE_NAME &> /dev/null || { echo "Please Create $RMF contai
 lxc info $RMF_WEB_INSTANCE_NAME &> /dev/null || { echo "Please Create rmf-web container for $RMF_FS_INSTANCE_NAME first."; exit 1; }
 
 echo "Configuring /etc/hosts on host machine" 
-lxc restart $RMF_FS_INSTANCE_NAME || lxc start $RMF_FS_INSTANCE_NAME
-lxc restart $RMF_WEB_INSTANCE_NAME || lxc start $RMF_WEB_INSTANCE_NAME
+lxc restart $RMF_FS_INSTANCE_NAME > /dev/null 2>&1 || lxc start $RMF_FS_INSTANCE_NAME
+lxc restart $RMF_WEB_INSTANCE_NAME > /dev/null 2>&1 || lxc start $RMF_WEB_INSTANCE_NAME
 
 echo "Retrieving ip address of $RMF_FS_INSTANCE_NAME"
 rmf_ip=`get_lxc_ip $RMF_FS_INSTANCE_NAME eth0`
