@@ -19,6 +19,9 @@ cd /home/web/rmf-web/example-deployment/
 
 echo 'building base keycloak image...'
 docker build -t rmf-web/keycloak -f docker/keycloak/keycloak.dockerfile docker/keycloak/
+docker save rmf-web/builder -o builder.zip
+docker load -i builder.zip 
+
 echo 'publishing keycloak image...'
 docker save rmf-web/keycloak -o keycloak.zip
 docker load -i keycloak.zip
