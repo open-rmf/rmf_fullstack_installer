@@ -12,10 +12,11 @@ useradd -m -G sudo,docker web -s /bin/bash || true
 mkdir -p /home/web/rmf-web
 cp -r $(find /opt/rmf -name "rmf-web")/* /home/web/rmf-web
 cp /root/deploy_web_setup.bash /home/web
+cp /root/{cyclonedds,fastdds}.xml /home/web
 
 chown -R web /home/web/rmf-web
-chown web /home/web/.bashrc /home/web/deploy_web_setup.bash
-chgrp web /home/web/.bashrc /home/web/deploy_web_setup.bash
+chown web /home/web/.bashrc /home/web/deploy_web_setup.bash /home/web/{cyclonedds,fastdds}.xml
+chgrp web /home/web/.bashrc /home/web/deploy_web_setup.bash /home/web/{cyclonedds,fastdds}.xml
 
 curl https://get.k3s.io | INSTALL_K3S_EXEC="server --no-deploy traefik --docker --write-kubeconfig-mode 644" sh
 
