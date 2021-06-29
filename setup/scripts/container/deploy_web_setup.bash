@@ -54,6 +54,8 @@ docker load -i rmf-server.zip
 
 echo 'creating rmf-server configmap...'
 kubectl create configmap rmf-server-config --from-file=rmf_server_config.py -o=yaml --dry-run=client | kubectl apply -f -
+echo 'creating cyclonedds config'
+kubectl create configmap cyclonedds --from-file /home/web/cyclonedds.xml | kubectl apply -f -
 echo 'deploying rmf-server...'
 kubectl apply -f k8s/rmf-server.yaml
 
