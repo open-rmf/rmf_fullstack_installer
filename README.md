@@ -16,6 +16,9 @@ bash setup/host-setup.bash
 bash setup/container-setup.bash setup/config/rmf.yaml
 ```
 
+## Architecture
+![architecture](/architecture.png)
+
 ## Infrastructure Requirements
 
 You can run this setup on your local machine, or provision a machine in the cloud. For consistency, we test our system on Amazon Web Services AMI `ami-0d058fe428540cd89` with these specs:
