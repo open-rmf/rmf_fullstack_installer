@@ -9,11 +9,12 @@ This will set up the host with various functions ( SSL, VNC etc ).
 
 ```
 bash host_setup.bash
-
 ```
 
+You should be able to access vnc at [url]/vnc. For example, https://openrobotics.demo.open-rmf.org/vnc
+
 ## Run container setup
-Once the host is ready, you can setup containers. For a given `$RMF_FS_INSTANCE_NAME` as specified in `config.yaml`, two containers are created in LXC
+Once the host is ready, you can setup containers. For a given `$RMF_FS_INSTANCE_NAME` as specified in your config file, two containers are created in LXC
 * `$RMF_FS_INSTANCE_NAME`: Contains RMF backend
 * `$RMF_FS_INSTANCE_NAME-web`: Contains rmf-web deployment with K3S
 
