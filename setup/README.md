@@ -19,6 +19,8 @@ Once the host is ready, you can setup containers. For a given `$RMF_FS_INSTANCE_
 
 Wireguard connects all of these machines in a VPN.
 
+You run this command to go through the setup process:
+
 ```
 bash container_setup.bash config/rmf.yaml
 ```
