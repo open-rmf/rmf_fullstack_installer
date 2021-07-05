@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 SCRIPTPATH=$(dirname $(realpath "$0"))
 source $SCRIPTPATH/utils.bash

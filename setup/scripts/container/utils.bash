@@ -32,6 +32,7 @@ done
 get_ingress_ip() { 
     while true; do
     	ip=`kubectl get service --namespace ingress-nginx ingress-nginx-controller  --output jsonpath='{.status.loadBalancer.ingress[0].ip}'`
+    if [[ $ip = 172* ]]; then continue; fi
 	if [[ ! -z $ip ]]; then echo $ip && break; fi
  	sleep 2
     done
@@ -40,6 +41,7 @@ get_ingress_ip() {
 get_lxc_ip() {
     while true; do
     	ip=`lxc exec $1 -- ip -4 addr show $2 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'`
+        if [[ $ip = 172* ]]; then continue; fi
         if [[ ! -z $ip ]]; then echo $ip && break; fi
 	sleep 2
     done

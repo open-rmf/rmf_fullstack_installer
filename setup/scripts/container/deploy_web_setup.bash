@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -19,8 +18,6 @@ cd /home/web/rmf-web/example-deployment/
 
 echo 'building base keycloak image...'
 docker build -t rmf-web/keycloak -f docker/keycloak/keycloak.dockerfile docker/keycloak/
-docker save rmf-web/builder -o builder.zip
-docker load -i builder.zip 
 
 echo 'publishing keycloak image...'
 docker save rmf-web/keycloak -o keycloak.zip
@@ -48,6 +45,8 @@ kubectl apply -f k8s/minio.yaml
 
 echo 'building base rmf image...'
 docker build -t rmf-web/builder -f docker/builder.dockerfile $rmf_ws/src
+docker save rmf-web/builder -o builder.zip
+docker load -i builder.zip 
 
 echo 'building rmf-server image...'
 docker build -t rmf-web/rmf-server -f docker/rmf-server.dockerfile $rmf_web_ws
@@ -58,7 +57,7 @@ docker load -i rmf-server.zip
 echo 'creating rmf-server configmap...'
 kubectl create configmap rmf-server-config --from-file=rmf_server_config.py -o=yaml --dry-run=client | kubectl apply -f -
 echo 'creating cyclonedds config'
-kubectl create configmap cyclonedds --from-file /home/web/cyclonedds.xml | kubectl apply -f -
+kubectl create configmap cyclonedds --from-file /home/web/cyclonedds.xml --validate=false | kubectl apply -f -
 echo 'deploying rmf-server...'
 kubectl apply -f k8s/rmf-server.yaml
 

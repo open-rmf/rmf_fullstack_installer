@@ -58,6 +58,7 @@ while true; do
             bash $SCRIPTPATH/scripts/container/setup_rmf_web_container.bash $1
             ;;
         "RMF bootstrap")
+            get_repos_file $RMF_FS_VCS_REPO $RMF_FS_INSTANCE_NAME 
             sudo cp /tmp/$RMF_FS_INSTANCE_NAME.repos /root/rmf.repos
             sudo bash $SCRIPTPATH/scripts/container/rmf_bootstrap.bash $1
             ;;
