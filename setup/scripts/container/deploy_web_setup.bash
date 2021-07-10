@@ -13,6 +13,12 @@ grep -rl 'ws://localhost' . | xargs sed -i "s/ws:\/\/localhost:8006/wss:\/\/$1\/
 
 rmf_ws=/opt/rmf
 rmf_web_ws=/home/web/rmf-web
+docker_builder_path=$rmf_web_ws/example-deployment/docker/builder.dockerfile
+
+echo "ENV RMW_IMPLEMENTATION=$3" >> $docker_builder_path
+echo "ENV ROS_DOMAIN_ID=$2" >> $docker_builder_path
+echo 'ENV FASTRTPS_DEFAULT_PROFILES_FILE=/fastdds/fastdds.xml' >> $docker_builder_path
+echo 'ENV CYCLONEDDS_URI=file:///cyclonedds/cyclonedds.xml' >> $docker_builder_path
 
 cd /home/web/rmf-web/example-deployment/
 
