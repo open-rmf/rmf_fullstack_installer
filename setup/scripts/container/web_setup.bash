@@ -3,6 +3,9 @@
 SCRIPTPATH=$(dirname $(realpath "$0"))
 source $SCRIPTPATH/utils.bash
 
+cd /opt/rmf/src
+find . -type d -name .git -exec sh -c "cd \"{}\"/../ && pwd && git pull -f" \;
+
 install_docker
 
 useradd -m -G sudo,docker web -s /bin/bash || true

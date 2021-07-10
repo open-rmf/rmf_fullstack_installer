@@ -34,6 +34,8 @@ mkdir -p /opt/rmf/src
 cd /opt/rmf
 cp /root/rmf.repos /opt/rmf/rmf.repos
 vcs import src < rmf.repos
+cd src
+find . -type d -name .git -exec sh -c "cd \"{}\"/../ && pwd && git pull -f" \;
 
 cd /opt/rmf
 rosdep install --from-paths src --ignore-src --rosdistro $1 -yr
