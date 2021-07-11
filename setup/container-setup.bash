@@ -28,9 +28,10 @@ mainmenu() {
         "Setup rmf-web Container" "| Provision + bootstrap an rmf-web container" \
         "RMF bootstrap"           "| [Root] Installs ROS2, RMF on the local machine" \
         "rmf-web bootstrap"       "| [Root] Deploys rmf-web on the local machine. A user 'web' will be created." \
+	"Setup Icons"		  "| Optionally set up icons on your rmf-web machine" \
         "Setup VPN"               "| [Root] Set Up VPN (Wireguard) to connect all devices" \
         "Deploy Config Files"     "| [Root] Deploy all configuration files" \
-        "Delete Containers"       "| Delete all containers associated with this config file" \
+        "Delete Containers"       "| Delete all containers and configs associated with this config file" \
         3>&1 1>&2 2>&3
 }
 
@@ -64,6 +65,9 @@ while true; do
             ;;
         "rmf-web bootstrap")
             sudo bash $SCRIPTPATH/scripts/container/web_bootstrap.bash $1
+            ;;
+        "Setup Icons")
+            sudo bash $SCRIPTPATH/scripts/container/web_icons_setup.bash $1
             ;;
         "Setup VPN")
             sudo bash $SCRIPTPATH/scripts/container/setup_vpn.bash $1
