@@ -10,8 +10,8 @@ mainmenu() {
         --menu "Cloud Provisioning Steps" \
         --clear --ok-button 'Select' \
         $LINES $(($COLUMNS-8)) $(( $LINES-8 ))  \
-        "Install AWS CLI v2" "| [Root] Terminal interface to manage AWS resources." \
-        "Install Terraform"  "| [Root] Provisioning Tool" \
+        "Install AWS CLI v2" "| Terminal interface to manage AWS resources." \
+        "Install Terraform"  "| Provisioning Tool" \
         "Configure AWS CLI"  "| Log into AWS Command Line interface" \
         "Generate AWS Keys"  "| Create Public / Private Key Pairs" \
         "Provision"          "| Create the Teraform Instance" \
@@ -22,10 +22,10 @@ mainmenu() {
 while true; do
     case $(mainmenu) in
         "Install AWS CLI v2")
-            sudo bash $SCRIPTPATH/scripts/install-aws-cli.bash
+            bash $SCRIPTPATH/scripts/install-aws-cli.bash
             ;;
         "Install Terraform")
-            sudo bash $SCRIPTPATH/scripts/install-terraform.bash
+            bash $SCRIPTPATH/scripts/install-terraform.bash
             ;;
         "Configure AWS CLI")
             bash $SCRIPTPATH/scripts/configure-aws-cli.bash

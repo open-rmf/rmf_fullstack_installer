@@ -12,6 +12,7 @@ The following script provides a step-by-step guide to the necessary steps to pro
 ```
 bash provision-cloud-machine.bash
 ```
+All necessary downloaded tools will be installed to the local root of this git repository.
 
 ### DNS
 You might want to set up DNS for your EC2 instance to access it over a human-readable URL. Here is how you can do so.

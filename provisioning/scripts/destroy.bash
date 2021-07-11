@@ -1,4 +1,7 @@
 #!/bin/bash
 
+GIT_ROOT_DIR=`git rev-parse --show-toplevel`
+
 cd $1
-terraform destroy
+
+$GIT_ROOT_DIR/.bin/terraform destroy

@@ -1,14 +1,14 @@
 #!/bin/bash
 
-if [[ $EUID -ne 0 ]]; then
-   echo -e "This script must be run as root"
-   exit 1
-fi
+GIT_ROOT_DIR=`git rev-parse --show-toplevel`
 
 cd /tmp
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
-./aws/install --update
+
+mkdir -p $GIT_ROOT_DIR/.bin 
+mkdir -p $GIT_ROOT_DIR/.install
+./aws/install --update -b $GIT_ROOT_DIR/.bin  -i $GIT_ROOT_DIR/.install
+
 rm awscliv2.zip
 
-which aws || echo "Something went wrong installing AWS CLI v2."
