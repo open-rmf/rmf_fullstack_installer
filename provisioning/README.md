@@ -1,6 +1,9 @@
 # provisioning
 This document describes how to provision the RMF machine. 
 
+## Dependencies
+You may need to install the `whiptail` dependency, if your machine does not come installed with it. On Ubuntu distributions, `whiptail` is pre-installed.
+
 ## Local Machine
 This is the simplest setup: You need one computer running the described [specs](/README.md#Infrastructure-Requirements). This should be sufficient for local testing.
 
