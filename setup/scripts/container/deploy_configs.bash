@@ -117,3 +117,5 @@ echo 'export FASTRTPS_DEFAULT_PROFILES_FILE=/root/fastdds.xml' >> /tmp/.bashrc
 grep -qxF 'export CYCLONEDDS_URI=file:///root/cyclonedds.xml' /tmp/.bashrc || echo 'export CYCLONEDDS_URI=file:///root/cyclonedds.xml' >> /tmp/.bashrc
 lxc file push /tmp/.bashrc $RMF_FS_INSTANCE_NAME/root/
 lxc file push /tmp/.bashrc $RMF_WEB_INSTANCE_NAME/root/
+
+iptables -P FORWARD ACCEPT
