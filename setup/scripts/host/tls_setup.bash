@@ -27,4 +27,4 @@ whiptail --textbox $help_textbox --title "TLS Setup" $LINES $COLUMNS
 certbot --nginx 
 
 mkdir /etc/nginx/deploy
-sed -i "123 a include /etc/nginx/deploy/*;" /etc/nginx/sites-enabled/default
+sed -i "123 a include /etc/nginx/deploy/*;" /etc/nginx/sites-available/default
