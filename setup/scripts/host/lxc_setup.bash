@@ -159,6 +159,8 @@ whiptail --textbox $help_textbox --title "LXC Setup" $LINES $COLUMNS
 
 echo "Setting up LXC Configurations.."
 lxc_setup_all
+echo "Ensure avahi-daemon is installed"
+apt install avahi-daemon -y
 echo "Networks:"; lxc network list
 echo "Profiles:"; lxc profile list
 
