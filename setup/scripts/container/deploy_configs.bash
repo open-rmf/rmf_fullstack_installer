@@ -70,6 +70,19 @@ location /dashboard {
     proxy_set_header Host            \$host;
     proxy_set_header X-Forwarded-For \$remote_addr;
 }
+
+location /reporting {
+    proxy_pass https://$RMF_WEB_INSTANCE_NAME.local;
+    proxy_set_header Host            \$host;
+    proxy_set_header X-Forwarded-For \$remote_addr;
+}
+
+location /logserver/api/v1 {
+    proxy_pass https://$RMF_WEB_INSTANCE_NAME.local;
+    proxy_set_header Host            \$host;
+    proxy_set_header X-Forwarded-For \$remote_addr;
+}
+
 location /rmf/api/v1/socket.io {
     proxy_pass https://$RMF_WEB_INSTANCE_NAME.local;
     proxy_http_version 1.1;
@@ -79,11 +92,13 @@ location /rmf/api/v1/socket.io {
     proxy_set_header Host            \$host;
     proxy_set_header X-Forwarded-For \$remote_addr;
 }
+
 location /rmf/api/v1 {
     proxy_pass https://$RMF_WEB_INSTANCE_NAME.local;
     proxy_set_header Host            \$host;
     proxy_set_header X-Forwarded-For \$remote_addr;
 }
+
 location /trajectory {
     rewrite /trajectory /   break;
     proxy_pass http://$RMF_WEB_INSTANCE_NAME.local:$RMF_FS_WEBSOCKET_PORT;
