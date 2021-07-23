@@ -30,8 +30,8 @@ mainmenu() {
         "rmf-web bootstrap"       "| [Root] Deploys rmf-web on the local machine. A user 'web' will be created." \
         "Setup VPN"               "| [Root] Set Up VPN (Wireguard) to connect all devices" \
         "Deploy Config Files"     "| [Root] Deploy all configuration files" \
-        "Setup Icons"		  "| Optionally set up icons on your rmf-web machine" \
-        "Delete Containers"       "| Delete all containers and configs associated with this config file" \
+        "Setup Icons"		      "| Optionally set up icons on your rmf-web machine" \
+        "Delete Containers"       "| [Root] Delete all containers and configs associated with this config file" \
         3>&1 1>&2 2>&3
 }
 
@@ -66,17 +66,17 @@ while true; do
         "rmf-web bootstrap")
             sudo bash $SCRIPTPATH/scripts/container/web_bootstrap.bash $1
             ;;
-        "Setup Icons")
-            sudo bash $SCRIPTPATH/scripts/container/web_icons_setup.bash $1
-            ;;
         "Setup VPN")
             sudo bash $SCRIPTPATH/scripts/container/setup_vpn.bash $1
             ;;
         "Deploy Config Files")
             sudo bash $SCRIPTPATH/scripts/container/deploy_configs.bash $1
             ;;
+        "Setup Icons")
+            sudo bash $SCRIPTPATH/scripts/container/web_icons_setup.bash $1
+            ;;
         "Delete Containers")
-            bash $SCRIPTPATH/scripts/container/delete.bash $1
+            sudo bash $SCRIPTPATH/scripts/container/delete.bash $1
             ;;
         *)
             break
