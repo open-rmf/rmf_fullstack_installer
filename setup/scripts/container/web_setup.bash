@@ -3,7 +3,10 @@
 SCRIPTPATH=$(dirname $(realpath "$0"))
 source $SCRIPTPATH/utils.bash
 
-cd /opt/rmf/src
+cd /opt/rmf
+cp /root/rmf.repos /opt/rmf/rmf.repos
+vcs import src < rmf.repos
+cd src
 find . -type d -name .git -exec sh -c "cd \"{}\"/../ && pwd && git pull -f" \;
 
 install_docker
