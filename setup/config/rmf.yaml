@@ -4,5 +4,5 @@ RMF_FS_INSTANCE_NAME: rmf                                       # Chosen name of
 RMF_FS_VCS_REPO: https://raw.githubusercontent.com/open-rmf/rmf/integration-tests/rmf.repos     # .repos file which this build will be based on
 RMF_FS_ROS_VERSION: foxy                                        # Target ROS2 version ( tested on foxy ) 
 RMF_FS_ROS_DOMAIN_ID: 0                                         # ROS2 Domain ID
-RMF_FS_RMW_IMPLEMENTATION: rmw_fastrtps_cpp                     # DDS distribution used
+RMF_FS_RMW_IMPLEMENTATION: rmw_cyclonedds_cpp                   # DDS distribution used
 RMF_FS_WEBSOCKET_PORT: 8006                                     # Websocket port for visualizer
