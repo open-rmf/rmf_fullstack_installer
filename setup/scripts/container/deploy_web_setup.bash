@@ -16,6 +16,7 @@ rmf_web_ws=/home/web/rmf-web
 docker_builder_path=$rmf_web_ws/example-deployment/docker/builder.dockerfile
 
 echo "" >> $docker_builder_path
+echo "RUN apt install ros-$4-rmw-cyclonedds-cpp -y" >> $docker_builder_path
 echo "ENV RMW_IMPLEMENTATION=$3" >> $docker_builder_path
 echo "ENV ROS_DOMAIN_ID=$2" >> $docker_builder_path
 echo 'ENV FASTRTPS_DEFAULT_PROFILES_FILE=/fastdds/fastdds.xml' >> $docker_builder_path
