@@ -3,6 +3,7 @@
 GIT_ROOT_DIR=`git rev-parse --show-toplevel`
 
 cd /tmp
+apt install curl unzip -y
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 
