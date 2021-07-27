@@ -1,0 +1,34 @@
+Instructions to operate cloud deployment
+
+# Access VNC
+On browser, go to openrobotics.demo.open-rmf/vnc    # replace with your instance url
+
+# Access RMF machine, where all ROS2 code is run from
+ssh -X -i /home/ubuntu/.ssh/id_rmf root@rmf.local
+
+# Access rmf-web machine, where all rmf-web Kubernetes cluster is run
+ssh -X -i /home/ubuntu/.ssh/id_rmf root@rmf-web.local
+
+# Run rmf backend
+## Access RMF machine
+ros2 launch rmf_demos office.launch.xml use_sim_time:=false
+
+# Run trajectory visualizer ( shows trajectories on rmf-web )
+## Access rmf-web machine
+ros2 launch rmf_visualization visualization.launch.xml use_sim_time:=false viz_config_file:=/opt/rmf/src/demonstrations/rmf_demos/rmf_demos/launch/include/office/office.rviz headless:=1 map_name:=L1
+
+# Manage rmf-web 
+## Access rmf-web machine
+su web; cd; 
+cd rmf-web/example-deployment
+
+### Reset api-server
+kubectl delete -f k8s/rmf-server.yaml
+kubectl apply -f k8s/rmf-server.yaml
+
+### Check K8s pods and debugging
+kubectl get pods
+kubectl get all
+kubectl describe [pod-name]
+kubectl logs [pod-name]
+
