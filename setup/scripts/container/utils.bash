@@ -18,7 +18,7 @@ create_container() {
   echo "Creating container $1.."
   lxc launch ubuntu:20.04 $1
   lxc profile assign $1 default,nat
-  lxc restart $1
+  lxc restart $1 || lxc start $1
 }
 
 eval_retry () {
