@@ -14,8 +14,8 @@ EOF
 }
 
 vnc_setup() {
-  apt install ubuntu-desktop gnome-panel gnome-settings-daemon metacity xfce4 nautilus gnome-terminal -y
-  apt install tigervnc-standalone-server -y
+  DEBIAN_FRONTEND=noninteractive apt install ubuntu-desktop gnome-panel gnome-settings-daemon metacity xfce4 nautilus gnome-terminal -y
+  DEBIAN_FRONTEND=noninteractive apt install tigervnc-standalone-server -y
 }
 
 
