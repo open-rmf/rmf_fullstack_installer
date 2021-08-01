@@ -126,17 +126,10 @@ read -p "Continue? [Yy] " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-ssh -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME "pkill -f schedule_visualizer"
-ssh -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME "pkill -f visualization"
-
-ssh -X -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME ". .profile; nohup ros2 launch rmf_visualization visualization.launch.xml use_sim_time:=$USE_SIM_TIME viz_config_file:=/opt/rmf/src/demons
-trations/rmf_demos/rmf_demos/launch/include/office/office.rviz headless:=1 map_name:=$LEVEL_NAME > /root/tailon_logs/current_launch.log" &
 
 ssh -X -t -i $IDENTITY_FILE $RMF_MACHINE_NAME ". .profile; ros2 launch $RMF_PACKAGE $RMF_SCENARIO.launch.xml headless:=$HEADLESS use_sim_time:=$USE_SIM_TIME 2>&1 | tee /root/tailon_logs
 /current_launch.log"
 
-ssh -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME "pkill -f schedule_visualizer"
-ssh -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME "pkill -f visualization"
 else
   echo "Abort."
 fi
