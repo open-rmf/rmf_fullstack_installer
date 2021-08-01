@@ -28,7 +28,7 @@ ssh-keygen -f "$KNOWN_HOSTS" -R "$RMF_WEB_INSTANCE_NAME.local"
 eval_retry "lxc exec $RMF_WEB_INSTANCE_NAME -- bash -c \"echo $(cat $PUBKEY) >> /root/.ssh/authorized_keys\""
 eval_retry "ssh -o StrictHostKeyChecking=no root@$RMF_WEB_INSTANCE_NAME.local -i $KEY echo 'SSH over mDNS is successful'"
 
-scp -i $KEY $SCRIPTPATH/{web_bootstrap,web_setup,deploy_web_setup,utils}.bash root@$RMF_WEB_INSTANCE_NAME.local:~ 
+scp -i $KEY $SCRIPTPATH/{web_bootstrap,web_setup,deploy_web_setup,utils,setup_logging}.bash root@$RMF_WEB_INSTANCE_NAME.local:~ 
 scp -i $KEY $SCRIPTPATH/../../config/{cyclonedds,fastdds}.xml root@$RMF_WEB_INSTANCE_NAME.local:~
 scp -i $KEY $1 root@$RMF_WEB_INSTANCE_NAME.local:~/config.yaml
 

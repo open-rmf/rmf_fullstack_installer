@@ -22,7 +22,7 @@ ssh-keygen -f "$KNOWN_HOSTS" -R "$RMF_FS_INSTANCE_NAME.local" > /dev/null
 eval_retry "lxc exec $RMF_FS_INSTANCE_NAME -- bash -c \"echo $(cat $PUBKEY) >> /root/.ssh/authorized_keys\""
 eval_retry "ssh -o StrictHostKeyChecking=no root@$RMF_FS_INSTANCE_NAME.local -i $KEY echo 'SSH over mDNS is successful'"
 
-scp -i $KEY $SCRIPTPATH/{rmf_bootstrap,rmf_setup,utils}.bash root@$RMF_FS_INSTANCE_NAME.local:~ 
+scp -i $KEY $SCRIPTPATH/{rmf_bootstrap,rmf_setup,utils,setup_logging}.bash root@$RMF_FS_INSTANCE_NAME.local:~ 
 scp -i $KEY $1 root@$RMF_FS_INSTANCE_NAME.local:~/config.yaml
 scp -i $KEY /tmp/$RMF_FS_INSTANCE_NAME.repos root@$RMF_FS_INSTANCE_NAME.local:~/rmf.repos 
 scp -i $KEY $SCRIPTPATH/config/{cyclonedds,fastdds}.xml root@$RMF_FS_INSTANCE_NAME.local:~

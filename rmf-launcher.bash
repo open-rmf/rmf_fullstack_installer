@@ -128,11 +128,15 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
 	ssh -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME "pkill -f schedule_visualizer"
 	ssh -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME "pkill -f visualization"
-	ssh -X -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME ". .profile; nohup ros2 launch rmf_visualization visualization.launch.xml use_sim_time:=$USE_SIM_TIME viz_config_file:=/opt/rmf/src/demonstrations/rmf_demos/rmf_demos/launch/include/office/office.rviz headless:=1 map_name:=$LEVEL_NAME >\$HOME/.ros/log/current_launch.log 2>&1 &"
-	ssh -X -t -i $IDENTITY_FILE $RMF_MACHINE_NAME ". .profile; ros2 launch $RMF_PACKAGE $RMF_SCENARIO.launch.xml headless:=$HEADLESS use_sim_time:=$USE_SIM_TIME | tee \$HOME/.ros/log/current_launch.log"
+
+	ssh -X -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME ". .profile; nohup ros2 launch rmf_visualization visualization.launch.xml use_sim_time:=$USE_SIM_TIME viz_config_file:=/opt/rmf/src/demonstrations/rmf_demos/rmf_demos/launch/include/office/office.rviz headless:=1 map_name:=$LEVEL_NAME > /root/logs/current_launch.log &"
+
+	ssh -X -t -i $IDENTITY_FILE $RMF_MACHINE_NAME ". .profile; ros2 launch $RMF_PACKAGE $RMF_SCENARIO.launch.xml headless:=$HEADLESS use_sim_time:=$USE_SIM_TIME 2>&1 | tee /root/logs/current_launch.log"
+
 	ssh -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME "pkill -f schedule_visualizer"
 	ssh -i $WEB_IDENTITY_FILE $WEB_MACHINE_NAME "pkill -f visualization"
 else
   echo "Abort."
 fi
+
 
