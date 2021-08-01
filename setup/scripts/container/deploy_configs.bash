@@ -8,13 +8,6 @@ export_config_vars $1
 RMF_WEB_INSTANCE_NAME=$RMF_FS_INSTANCE_NAME-web
 
 
-WG_SUBNET=$(whiptail \
-    --nocancel \
-    --inputbox "Enter your Wireguard Subnet prefix ( Omit the last byte ). Only supports /24 subnets." \
-    --title "Deploy Configs" \
-    $LINES $COLUMNS 10.11.12 \
-    3>&1 1>&2 2>&3)
-
 lxc info $RMF_FS_INSTANCE_NAME &> /dev/null || { echo "Please Create $RMF container for $RMF_FS_INSTANCE_NAME first."; exit 1; }
 lxc info $RMF_WEB_INSTANCE_NAME &> /dev/null || { echo "Please Create rmf-web container for $RMF_FS_INSTANCE_NAME first."; exit 1; }
 
@@ -128,11 +121,11 @@ nginx -s reload
 
 echo "Copying configuration files"
 CONFIGPATH=$SCRIPTPATH/../../config
-sed "s/10.11.12/$WG_SUBNET/g" $CONFIGPATH/cyclonedds.xml  > /tmp/cyclonedds.xml
+sed "s/10.11.12/$RMF_FS_WIREGUARD_SUBNET/g" $CONFIGPATH/cyclonedds.xml  > /tmp/cyclonedds.xml
 lxc file push /tmp/cyclonedds.xml $RMF_FS_INSTANCE_NAME/root/
 lxc file push /tmp/cyclonedds.xml $RMF_WEB_INSTANCE_NAME/root/
 
-sed "s/10.11.12/$WG_SUBNET/g" $CONFIGPATH/fastdds.xml  > /tmp/fastdds.xml
+sed "s/10.11.12/$RMF_FS_WIREGUARD_SUBNET/g" $CONFIGPATH/fastdds.xml  > /tmp/fastdds.xml
 lxc file push /tmp/fastdds.xml $RMF_FS_INSTANCE_NAME/root/
 lxc file push /tmp/fastdds.xml $RMF_WEB_INSTANCE_NAME/root/
 
