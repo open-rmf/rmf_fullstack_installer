@@ -133,4 +133,16 @@ grep -qxF 'export CYCLONEDDS_URI=file:///root/cyclonedds.xml' /tmp/.bashrc || ec
 lxc file push /tmp/.bashrc $RMF_FS_INSTANCE_NAME/root/
 lxc file push /tmp/.bashrc $RMF_WEB_INSTANCE_NAME/root/
 
+cp $CONFIGPATH/.profile /tmp/.profile
+echo "source /opt/ros/$RMF_FS_ROS_VERSION/setup.bash" >> /tmp/.profile
+echo 'source /opt/rmf/install/setup.bash' >> /tmp/.profile
+echo "export RMW_IMPLEMENTATION=$RMF_FS_RMW_IMPLEMENTATION" >> /tmp/.profile
+echo "export ROS_DOMAIN_ID=$RMF_FS_ROS_DOMAIN_ID" >> /tmp/.profile
+echo 'export FASTRTPS_DEFAULT_PROFILES_FILE=/root/fastdds.xml' >> /tmp/.profile
+grep -qxF 'export CYCLONEDDS_URI=file:///root/cyclonedds.xml' /tmp/.profile || echo 'export CYCLONEDDS_URI=file:///root/cyclonedds.xml' >> /tmp/.profile
+lxc file push /tmp/.profile $RMF_FS_INSTANCE_NAME/root/
+lxc file push /tmp/.profile $RMF_WEB_INSTANCE_NAME/root/
+
+# Make sure ip forwarding is enabled  
+sysctl -w net.ipv4.ip_forward=1
 iptables -P FORWARD ACCEPT
