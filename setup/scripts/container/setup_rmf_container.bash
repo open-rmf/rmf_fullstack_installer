@@ -25,7 +25,7 @@ eval_retry "ssh -o StrictHostKeyChecking=no root@$RMF_FS_INSTANCE_NAME.local -i 
 scp -i $KEY $SCRIPTPATH/{rmf_bootstrap,rmf_setup,utils,setup_logging}.bash root@$RMF_FS_INSTANCE_NAME.local:~ 
 scp -i $KEY $1 root@$RMF_FS_INSTANCE_NAME.local:~/config.yaml
 scp -i $KEY /tmp/$RMF_FS_INSTANCE_NAME.repos root@$RMF_FS_INSTANCE_NAME.local:~/rmf.repos 
-scp -i $KEY $SCRIPTPATH/config/{cyclonedds,fastdds}.xml root@$RMF_FS_INSTANCE_NAME.local:~
+scp -i $KEY $SCRIPTPATH/../../config/{cyclonedds,fastdds}.xml root@$RMF_FS_INSTANCE_NAME.local:~
 
 lxc exec $RMF_FS_INSTANCE_NAME -- bash -c "bash /root/rmf_bootstrap.bash /root/config.yaml"
 lxc stop $RMF_FS_INSTANCE_NAME > /dev/null 2>&1

@@ -9,7 +9,7 @@ Description=Start tailon logging
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/tailon -r /tailon/ -b 0.0.0.0:8084 -f /root/logs/*
+ExecStart=/usr/local/bin/tailon -r /tailon/ -b 0.0.0.0:8084 -f /root/tailon_logs/*
 Restart=always
 RestartSec=30
 
@@ -24,8 +24,8 @@ systemctl restart tailon.service || systemctl start tailon.service
 logging_setup() {
   DEBIAN_FRONTEND=noninteractive apt install python3-pip
   pip3 install tailon
-  mkdir /root/logs
-  touch /root/logs/current_launch.log
+  mkdir /root/tailon_logs
+  touch /root/tailon_logs/current_launch.log
 }
 
 

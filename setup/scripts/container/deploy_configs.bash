@@ -110,14 +110,14 @@ location /trajectory {
     proxy_set_header X-Forwarded-For \$remote_addr;
 
 location /tailon/ws {
-    proxy_pass http://$RMF_FS_INSTANCE_NAME:8084/tailon/ws;
+    proxy_pass http://$RMF_FS_INSTANCE_NAME.local:8084/tailon/ws;
     proxy_http_version 1.1;
     proxy_set_header Upgrade \$http_upgrade;
     proxy_set_header Connection upgrade;
 }
 
 location /tailon {
-    proxy_pass http://$RMF_FS_INSTANCE_NAME:8084;
+    proxy_pass http://$RMF_FS_INSTANCE_NAME.local:8084;
     proxy_set_header Host            \$host;
     proxy_set_header X-Forwarded-For \$remote_addr;
 }
