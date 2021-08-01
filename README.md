@@ -19,6 +19,13 @@ bash setup/container-setup.bash setup/config/rmf.yaml
 # Optionally, use the rmf-launcher.bash script to help with launching
 bash rmf-launcher --help
 bash reset-rmf-web # When needed
+
+# View Everything
+openrobotics.demo.open-rmf.org/vnc          # VNC Login Screen
+openrobotics.demo.open-rmf.org/tailon/      # RMF Logs
+openrobotics.demo.open-rmf.org/dashboard    # rmf-web dashboard
+openrobotics.demo.open-rmf-org/reporting    # rmf-web reporting-server
+openrobotics.demo.open-rmf-org/auth         # Keycloak admin panel
 ```
 
 ## Architecture
