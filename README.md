@@ -17,8 +17,8 @@ bash setup/container-setup.bash setup/config/rmf.yaml
 
 # Launch RMF, rmf-web, by following instructions.txt
 # Optionally, use the rmf-launcher.bash script to help with launching
-bash rmf-launcher.bash --help
-bash reset-rmf-web-api-server.bash # When needed
+bash rmf-launcher --help
+bash reset-rmf-web # When needed
 ```
 
 ## Architecture
