@@ -5,7 +5,7 @@ PARAMS=""
 while (( "$#" )); do
   case "$1" in
     --help)
-      echo "Usage: rmf-launcher --headless [0|1] --simTime [0|1] --world [world name] --package [ros2 package name] --machineName [login@hostname of machine running RMF] webMachineName [login@hostname of machine running rmf-web] --identityFile [path to ssh key of machineName] --webIdentityFile [path to ssh key of webMachineName"
+      echo "Usage: rmf-launcher --headless [0|1] --simTime [true|false] --world [world name] --package [ros2 package name] --machineName [login@hostname of machine running RMF] webMachineName [login@hostname of machine running rmf-web] --identityFile [path to ssh key of machineName] --webIdentityFile [path to ssh key of webMachineName"
       exit 0
       ;;
     -i|--identityFile)
