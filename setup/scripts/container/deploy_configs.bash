@@ -33,10 +33,10 @@ sed -i "/$web_ip.*/d" /etc/hosts
 echo "$web_ip    $RMF_WEB_INSTANCE_NAME.local" >> /etc/hosts
 
 echo "Checking config files are present."
-[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/rmf/wg0.conf ]] || { echo "rmf wg0.conf not missing."; exit 1; }
-[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/rmf-web/wg0.conf ]] || { echo "rmf-web wg0.conf not missing."; exit 1; }
-[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/device/wg0.conf ]] || { echo "device wg0.conf not missing."; exit 1; }
-[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/server/wg0.conf ]] || { echo "server wg0.conf not missing."; exit 1; }
+[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/rmf/wg0.conf ]] || { echo "rmf wg0.conf missing."; exit 1; }
+[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/rmf-web/wg0.conf ]] || { echo "rmf-web wg0.conf missing."; exit 1; }
+[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/device/wg0.conf ]] || { echo "device wg0.conf missing."; exit 1; }
+[[ -f /etc/wireguard/$RMF_FS_INSTANCE_NAME/server/wg0.conf ]] || { echo "server wg0.conf missing."; exit 1; }
 echo "Success."
 
 echo "Deploying Wireguard Configs"
