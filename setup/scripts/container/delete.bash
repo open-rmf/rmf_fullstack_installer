@@ -10,4 +10,3 @@ sed -i "/$RMF_WEB_INSTANCE_NAME.local/d" /etc/hosts
 
 lxc delete $RMF_FS_INSTANCE_NAME --force || true
 lxc delete $RMF_WEB_INSTANCE_NAME --force || true
-~                                                      
