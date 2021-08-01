@@ -5,14 +5,6 @@ SCRIPTPATH=$(dirname $(realpath "$0"))
 source $SCRIPTPATH/utils.bash
 export_config_vars $1
 
-help_textbox=$(mktemp)
-cat << END > $help_textbox
-This will generate Wireguard deployment configurations in /etc/wireguard.
-The host machine will be the Wireguard Server. Wireguard will use port 51820.
-Once generated, this tool will not overwrite keys.
-If you wish to generate new keys, delete the corresponding folder in /etc/wireguard.
-END
-
 whiptail --textbox $help_textbox --title "Setup VPN" $LINES $COLUMNS 
 
 ( which wg-quick && which resolvconf )  > /dev/null 2>&1 || ( echo "Wireguard not found. Attempting to install." && \
