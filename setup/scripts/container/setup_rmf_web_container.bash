@@ -30,6 +30,7 @@ eval_retry "ssh -o StrictHostKeyChecking=no root@$RMF_WEB_INSTANCE_NAME.local -i
 
 scp -i $KEY $SCRIPTPATH/{web_bootstrap,web_setup,deploy_web_setup,utils,setup_logging}.bash root@$RMF_WEB_INSTANCE_NAME.local:~ 
 scp -i $KEY $SCRIPTPATH/../../config/{cyclonedds,fastdds}.xml root@$RMF_WEB_INSTANCE_NAME.local:~
+scp -i $KEY /tmp/$RMF_FS_INSTANCE_NAME.repos root@$RMF_WEB_INSTANCE_NAME.local:~/rmf.repos 
 scp -i $KEY $1 root@$RMF_WEB_INSTANCE_NAME.local:~/config.yaml
 
 lxc exec $RMF_WEB_INSTANCE_NAME -- bash -c "bash /root/web_bootstrap.bash /root/config.yaml"
