@@ -15,9 +15,10 @@ bash setup/host-setup.bash
 # Provision and Deploy
 bash setup/container-setup.bash setup/config/rmf.yaml
 
-# Launch RMF, rmf-web, by following ![instructions.txt](/instructions.txt]
-# Optionally, use the ![rmf-launcher.bash](/rmf-launcher.bash) script to help with launching
+# Launch RMF, rmf-web, by following instructions.txt
+# Optionally, use the rmf-launcher.bash script to help with launching
 bash rmf-launcher.bash --help
+bash reset-rmf-web-api-server.bash # When needed
 ```
 
 ## Architecture
