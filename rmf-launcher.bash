@@ -127,8 +127,7 @@ echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 
-ssh -X -t -i $IDENTITY_FILE $RMF_MACHINE_NAME ". .profile; ros2 launch $RMF_PACKAGE $RMF_SCENARIO.launch.xml headless:=$HEADLESS use_sim_time:=$USE_SIM_TIME 2>&1 | tee /root/tailon_logs
-/current_launch.log"
+ssh -X -t -i $IDENTITY_FILE $RMF_MACHINE_NAME ". .profile; ros2 launch $RMF_PACKAGE $RMF_SCENARIO.launch.xml headless:=$HEADLESS use_sim_time:=$USE_SIM_TIME 2>&1 | tee /root/tailon_logs/current_launch.log"
 
 else
   echo "Abort."
