@@ -25,3 +25,9 @@ You run this command to go through the setup process:
 ```
 bash container_setup.bash config/rmf.yaml
 ```
+
+You can also run a fully scripted setup. Note that this will delete any prior containers you have.
+
+```
+bash auto_setup.bash config/rmf.yaml
+```
