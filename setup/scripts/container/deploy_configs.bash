@@ -108,6 +108,7 @@ location /trajectory {
     proxy_read_timeout 86400;
     proxy_set_header Host            \$host:\$server_port;
     proxy_set_header X-Forwarded-For \$remote_addr;
+}
 
 location /tailon/ws {
     proxy_pass http://$RMF_FS_INSTANCE_NAME.local:8084/tailon/ws;
@@ -120,7 +121,6 @@ location /tailon {
     proxy_pass http://$RMF_FS_INSTANCE_NAME.local:8084;
     proxy_set_header Host            \$host;
     proxy_set_header X-Forwarded-For \$remote_addr;
-}
 }""" > /etc/nginx/deploy/web_proxy
 
 systemctl restart nginx
