@@ -7,4 +7,4 @@ RMF_FS_ROS_DOMAIN_ID: 0                                         # ROS2 Domain ID
 RMF_FS_RMW_IMPLEMENTATION: rmw_cyclonedds_cpp                   # DDS distribution used
 RMF_FS_WEBSOCKET_PORT: 8006                                     # Websocket port for visualizer
 RMF_FS_WIREGUARD_SUBNET: 10.11.12                               # Subnet for Wireguard Network ( excluding the last 8 bytes )
-RMF_FS_SERVER_EXTERNAL_IP: 10.42.0.1                            # External IP of server
+RMF_FS_WIREGUARD_EXTERNAL_IP: 10.42.0.1                            # External IP of server

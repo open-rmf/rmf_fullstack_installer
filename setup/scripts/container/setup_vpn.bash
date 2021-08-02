@@ -22,21 +22,21 @@ server_pubkey=`cat $WG_PATH/server/publickey`
 if [[ ! -d $WG_PATH/rmf ]]; then
     mkdir $WG_PATH/rmf; cd $WG_PATH/rmf;
     wg genkey | tee privatekey | wg pubkey > publickey
-    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 2 $server_pubkey $RMF_FS_SERVER_EXTERNAL_IP wg0.conf
+    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 2 $server_pubkey $RMF_FS_WIREGUARD_EXTERNAL_IP wg0.conf
 fi
 echo -e "rmf wg0.conf"; cat $WG_PATH/rmf/wg0.conf; echo -e "\n\n"
 
 if [[ ! -d $WG_PATH/rmf-web ]]; then
     mkdir $WG_PATH/rmf-web; cd $WG_PATH/rmf-web;
     wg genkey | tee privatekey | wg pubkey > publickey
-    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 3 $server_pubkey $RMF_FS_SERVER_EXTERNAL_IP wg0.conf
+    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 3 $server_pubkey $RMF_FS_WIREGUARD_EXTERNAL_IP wg0.conf
 fi
 echo -e "rmf-web wg0.conf"; cat $WG_PATH/rmf-web/wg0.conf; echo -e "\n\n"
 
 if [[ ! -d $WG_PATH/device ]]; then
     mkdir $WG_PATH/device; cd $WG_PATH/device;
     wg genkey | tee privatekey | wg pubkey > publickey
-    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 4 $server_pubkey $RMF_FS_SERVER_EXTERNAL_IP wg0.conf
+    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 4 $server_pubkey $RMF_FS_WIREGUARD_EXTERNAL_IP wg0.conf
 fi
 echo -e "device wg0.conf"; cat $WG_PATH/device/wg0.conf; echo -e "\n\n"
 
