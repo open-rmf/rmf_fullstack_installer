@@ -5,8 +5,6 @@ SCRIPTPATH=$(dirname $(realpath "$0"))
 source $SCRIPTPATH/utils.bash
 export_config_vars $1
 
-whiptail --textbox $help_textbox --title "Setup VPN" $LINES $COLUMNS 
-
 ( which wg-quick && which resolvconf )  > /dev/null 2>&1 || ( echo "Wireguard not found. Attempting to install." && \
     apt install wireguard wireguard-tools openresolv -y )
 
@@ -16,27 +14,27 @@ WG_PATH=/etc/wireguard/$RMF_FS_INSTANCE_NAME
 if [[ ! -d $WG_PATH/server ]]; then
     mkdir -p $WG_PATH/server; cd $WG_PATH/server; wg genkey | tee privatekey | wg pubkey > publickey
 fi
-server_pubkey=`cat $WG_PATH/server/publickey`
+SERVER_PUBKEY=`cat $WG_PATH/server/publickey`
 
 # Create wireguard templates
 if [[ ! -d $WG_PATH/rmf ]]; then
     mkdir $WG_PATH/rmf; cd $WG_PATH/rmf;
     wg genkey | tee privatekey | wg pubkey > publickey
-    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 2 $server_pubkey $RMF_FS_WIREGUARD_EXTERNAL_IP wg0.conf
+    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 2 $SERVER_PUBKEY $RMF_FS_WIREGUARD_EXTERNAL_IP wg0.conf
 fi
 echo -e "rmf wg0.conf"; cat $WG_PATH/rmf/wg0.conf; echo -e "\n\n"
 
 if [[ ! -d $WG_PATH/rmf-web ]]; then
     mkdir $WG_PATH/rmf-web; cd $WG_PATH/rmf-web;
     wg genkey | tee privatekey | wg pubkey > publickey
-    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 3 $server_pubkey $RMF_FS_WIREGUARD_EXTERNAL_IP wg0.conf
+    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 3 $SERVER_PUBKEY $RMF_FS_WIREGUARD_EXTERNAL_IP wg0.conf
 fi
 echo -e "rmf-web wg0.conf"; cat $WG_PATH/rmf-web/wg0.conf; echo -e "\n\n"
 
 if [[ ! -d $WG_PATH/device ]]; then
     mkdir $WG_PATH/device; cd $WG_PATH/device;
     wg genkey | tee privatekey | wg pubkey > publickey
-    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 4 $server_pubkey $RMF_FS_WIREGUARD_EXTERNAL_IP wg0.conf
+    generate_wg0_client_conf `cat privatekey` $RMF_FS_WIREGUARD_SUBNET 4 $SERVER_PUBKEY $RMF_FS_WIREGUARD_EXTERNAL_IP wg0.conf
 fi
 echo -e "device wg0.conf"; cat $WG_PATH/device/wg0.conf; echo -e "\n\n"
 
