@@ -25,7 +25,8 @@ chgrp web /home/web/.bashrc /home/web/deploy_web_setup.bash /home/web/{cyclonedd
 
 curl https://get.k3s.io | INSTALL_K3S_EXEC="server --no-deploy traefik --docker --write-kubeconfig-mode 644" sh
 
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-0.32.0/deploy/static/provider/cloud/deploy.yaml
+
+kubectl apply -f /home/web/rmf-web/example-deployment/k8s/ingress.yaml || kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
